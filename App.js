@@ -1,234 +1,173 @@
 
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, TextInput, View, Alert, Button, Text } from 'react-native';
+import { AppRegistry, StyleSheet, TextInput, View, Alert, Button, Text, Image } from 'react-native';
 // Importing Stack Navigator library to add multiple activities.
 import { StackNavigator } from 'react-navigation';
 
+AppRegistry.registerComponent(COVID19APP, () => App);
 
-class LoginActivity extends Component {
+class MainActivity extends Component {
 
-  // Setting up Login Activity title.
   static navigationOptions =
-    {
-      title: 'LoginActivity',
-    };
-
-  constructor(props) {
-
-    super(props)
-
-    this.state = {
-
-      UserEmail: '',
-      UserPassword: ''
-
-    }
-  }
-
-  UserLoginFunction = () => {
-
-    const { UserID } = this.state;
-    const { UserPassword } = this.state;
-
-
-    fetch('https://reactnativecode.000webhostapp.com/UserLogin.php', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-
-        id: UserID,
-
-        password: UserPassword
-
-      })
-
-    }).then((response) => response.json())
-      .then((responseJson) => {
-
-        // If server response message same as Data Matched
-        if (responseJson === 'Data Matched') {
-
-          //Then open Profile activity and send user email to profile activity.
-          this.props.navigation.navigate('Second', { ID: UserID });
-
-        }
-        else {
-
-          Alert.alert(responseJson);
-        }
-
-      }).catch((error) => {
-        console.error(error);
-      });
-
-  }
-
-  render() {
-    return (
-
-      <View style={styles.MainContainer}>
-
-        <Text style={styles.TextComponentStyle}>User Login Form</Text>
-
-        <TextInput
-
-          // Adding hint in Text Input using Place holder.
-          placeholder="Enter User Email"
-
-          onChangeText={UserEmail => this.setState({ UserEmail })}
-
-          // Making the Under line Transparent.
-          underlineColorAndroid='transparent'
-
-          style={styles.TextInputStyleClass}
-        />
-
-        <TextInput
-
-          // Adding hint in Text Input using Place holder.
-          placeholder="Enter User Password"
-
-          onChangeText={UserPassword => this.setState({ UserPassword })}
-
-          // Making the Under line Transparent.
-          underlineColorAndroid='transparent'
-
-          style={styles.TextInputStyleClass}
-
-          secureTextEntry={true}
-        />
-
-        <Button title="Click Here To Login" onPress={this.UserLoginFunction} color="#2196F3" />
-
-
-
-      </View>
-
-    );
-  }
-}
-
-class RegActivity extends Component {
-  constructor(props) {
-
-    super(props)
-
-    this.state = {
-
-      UserID: '',
-      UserName: '',
-      UserPassword: ''
-    }
-  }
-
-  render() {
-    return (
-      <View style={styles.MainContainer}>
-
-
-      </View>
-    );
-  }
-
-
-  UserRegistrationFunction = () => {
-
-    const { UserID } = this.state;
-    const { UserName } = this.state;
-    const { UserPassword } = this.state;
-
-
-
-    fetch('https://reactnativecode.000webhostapp.com/UserReg.php', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-
-        id: UserID,
-
-        name: UserName,
-
-        password: UserPassword
-
-      })
-
-    }).then((response) => response.json())
-      .then((responseJson) => {
-
-        // Showing response message coming from server after inserting records.
-        Alert.alert(responseJson);
-
-      }).catch((error) => {
-        console.error(error);
-      });
-  }
-}
-
-// Creating Profile activity.
-class ProfileActivity extends Component {
-
-  // Setting up profile activity title.
-  static navigationOptions =
-    {
-      title: 'ProfileActivity',
-
-    };
-
-
-  render() {
-
-    const { goBack } = this.props.navigation;
-
-    return (
-      <View style={styles.MainContainer}>
-
-        <Text style={styles.TextComponentStyle}> {this.props.navigation.state.params.ID} </Text>
-        <Text style={styles.TextComponentStyle}> {this.props.navigation.state.params.Name} </Text>
-        <Button title="Click here to Logout" onPress={() => goBack(null)} />
-
-      </View>
-    );
-  }
-}
-
-export default MainProject = StackNavigator(
   {
-    First: { screen: LoginActivity },
+     title: 'MainActivity',
+  };
 
-    Second: { screen: ProfileActivity }
+constructor(props) {
 
-  });
+   super(props)
 
+   this.state = {
 
-const styles = StyleSheet.create({
+     TextInput_Patient_ID: '',
+     TextInput_Practitioner_ID: '',
+     TextInput_Patient_Details_Date: '',
+     TextInput_Patient_Fist_Name: '',
+     TextInput_Patient_Last_Name: '',
+     TextInput_Patient_DOB: '',
+     TextInput_Patient_Gender: '',
+     TextInput_Patient_Contact_Number: '',
+     TextInput_Patient_Address: '',
+     TextInput_Patient_Pregnant: '',
+     TextInput_Patient_Smoke: '',
+     TextInput_Patient_Temperature: '',
+     TextInput_Patient_CoughSeverity: '',
+     TextInput_Patient_SmellLoss: '',
+     TextInput_Patient_ShortnessOfBreath: '',
+     TextInput_Patient_FatigeSeverity: '',
+     TextInput_Patient_DrowsynessSeverity: '',
+     TextInput_Patient_MuscleAcheSeverity: '',
+     TextInput_Patient_HeadAcheSeverity: '',
+     TextInput_Patient_SoreThroat: '',
+     TextInput_Patient_RunnyNose: '',
+     TextInput_Patient_TasteLoss: '',
+     TextInput_Patient_AnxietySeverity: '',
+     TextInput_Patient_DepressionSeverity: '',
+     TextInput_Patient_OCDSeverity: '',
+     TextInput_Patient_ADHDSeverity: '',
+     TextInput_Patient_BipolarSeverity: '',
+     TextInput_Patient_PTSDSeverity: '',
+     TextInput_Patient_SchizophreniaSeverity: '',
+     TextInput_Patient_MedicalCondition: '',
+     TextInput_Patient_ConditionSeverity: '',
+     TextInput_Patient_TreatmentsUsed: '',
+     TextInput_Patient_DurationOfCondition: '',
+     TextInput_Patient_RegularyWearFaceMask: '',
+     TextInput_Patient_PublicTransportFreq: '',
+     TextInput_Patient_HandWashFreq: '',
+     TextInput_Patient_FreqUseOfDisinfectant: '',
+     TextInput_Patient_PreviouslyCovidTested: '',
+     TextInput_Patient_CoverWhenCoughSneezing: '',
+     TextInput_Patient_CloseContactFeq: '',
+     TextInput_Patient_Patient_PreviouslyHadFlu: ''
 
-  MainContainer: {
+   }
 
-    justifyContent: 'center',
-    flex: 1,
-    margin: 10
-  },
+ }
 
-  TextInputStyleClass: {
+ InsertStudentRecordsToServer = () =>{
 
-    textAlign: 'center',
-    marginBottom: 7,
-    height: 40,
-    borderWidth: 1,
-    // Set border Hex Color Code Here.
-    borderColor: '#2196F3',
+      fetch('https://reactnativecode.000webhostapp.com/Patient/InsertPatientDetails.php', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
 
-    // Set border Radius.
-    borderRadius: 5,
+        TextInput_Patient_ID: '',
+     TextInput_Practitioner_ID: '',
+     TextInput_Patient_Details_Date: '',
+     TextInput_Patient_Fist_Name: '',
+     TextInput_Patient_Last_Name: '',
+     TextInput_Patient_DOB: '',
+     TextInput_Patient_Gender: '',
+     TextInput_Patient_Contact_Number: '',
+     TextInput_Patient_Address: '',
+     TextInput_Patient_Pregnant: '',
+     TextInput_Patient_Smoke: '',
+     TextInput_Patient_Temperature: '',
+     TextInput_Patient_CoughSeverity: '',
+     TextInput_Patient_SmellLoss: '',
+     TextInput_Patient_ShortnessOfBreath: '',
+     TextInput_Patient_FatigeSeverity: '',
+     TextInput_Patient_DrowsynessSeverity: '',
+     TextInput_Patient_MuscleAcheSeverity: '',
+     TextInput_Patient_HeadAcheSeverity: '',
+     TextInput_Patient_SoreThroat: '',
+     TextInput_Patient_RunnyNose: '',
+     TextInput_Patient_TasteLoss: '',
+     TextInput_Patient_AnxietySeverity: '',
+     TextInput_Patient_DepressionSeverity: '',
+     TextInput_Patient_OCDSeverity: '',
+     TextInput_Patient_ADHDSeverity: '',
+     TextInput_Patient_BipolarSeverity: '',
+     TextInput_Patient_PTSDSeverity: '',
+     TextInput_Patient_SchizophreniaSeverity: '',
+     TextInput_Patient_MedicalCondition: '',
+     TextInput_Patient_ConditionSeverity: '',
+     TextInput_Patient_TreatmentsUsed: '',
+     TextInput_Patient_DurationOfCondition: '',
+     TextInput_Patient_RegularyWearFaceMask: '',
+     TextInput_Patient_PublicTransportFreq: '',
+     TextInput_Patient_HandWashFreq: '',
+     TextInput_Patient_FreqUseOfDisinfectant: '',
+     TextInput_Patient_PreviouslyCovidTested: '',
+     TextInput_Patient_CoverWhenCoughSneezing: '',
+     TextInput_Patient_CloseContactFeq: '',
+     TextInput_Patient_Patient_PreviouslyHadFlu: '',
 
-    // Set border Radius.
-    //borderRadius: 10 ,
+     Patient_ID : this.state.TextInput_Patient_ID,
+
+       
+
+      })
+
+      }).then((response) => response.json())
+          .then((responseJson) => {
+
+            // Showing response message coming from server after inserting records.
+            Alert.alert(responseJson);
+
+          }).catch((error) => {
+            console.error(error);
+          });
+
+}
+
+ GoTo_Show_PatientList_Activity_Function = () =>
+  {
+    this.props.navigation.navigate('Second');
+    
   }
+}
 
-});
+//class LoginActivity extends Component {
+  // Setting up Login Activity title.
+  //static navigationOptions =
+    //{
+      //title: 'LoginActivity',
+    //};
+  //constructor(props) {
+    //super(props)
+    //this.state = {
+    //UserEmail: '',
+    //UserPassword: ''
+    //}
+  //}
+
+ // export default MainProject = StackNavigator(
+   // {
+     // First: { screen: LoginActivity },
+  
+      //Second: { screen: PatientList_Activity }
+  
+    //});
+
+    
+
+
+  
+
+ 
+ 
